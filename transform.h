@@ -233,6 +233,14 @@ private:
   bool GetXY(double phi, double lambda, double& x, double& y) const;
 };
 
+class GallPeters : public CylindricalTransform {
+private:
+  double GetMaxHeight(const TransformParams& params);
+  double GetLat(double y);
+  double GetLong(double x) const;
+  bool GetXY(double phi, double lambda, double& x, double& y) const;
+};
+
 class Cylindrical : public CylindricalTransform {
 private:
   double GetLat(double y);

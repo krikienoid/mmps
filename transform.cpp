@@ -320,6 +320,8 @@ Transform* Transform::GetTransform(const char *type)
     transform = new Mollweide();
   } else if (strcmp(type, "mercator") == 0) {
     transform = new Mercator();
+  } else if (strcmp(type, "gallpeters") == 0) {
+    transform = new GallPeters();
   } else if (strcmp(type, "cylindrical") == 0) {
     transform = new Cylindrical();
   } else if (strcmp(type, "azimuthal") == 0) {
@@ -539,6 +541,29 @@ bool Mercator::GetXY(double phi, double lambda, double& x, double& y) const
   if (phi < 0) {
     y = -y;
   }
+  return true;
+}
+
+double GallPeters::GetMaxHeight(const TransformParams& params)
+{
+  (void(params));
+  return 2;
+}
+
+double GallPeters::GetLat(double y)
+{
+  return asin(y / 2);
+}
+
+double GallPeters::GetLong(double x) const
+{
+  return x;
+}
+
+bool GallPeters::GetXY(double phi, double lambda, double& x, double& y) const
+{
+  x = lambda;
+  y = 2 * sin(phi);
   return true;
 }
 
